@@ -1,17 +1,22 @@
-﻿@model List<KitapApi.Entities.Kategori>
+@model List<KitapMVC.Models.Entities.Kategori>
 @{
     ViewData["Title"] = "Kategoriler";
 }
 
 <div class="container">
     <h1 class="my-4">@ViewData["Title"]</h1>
+    
+    @if (ViewBag.DebugMessage != null)
+    {
+        <div class="alert alert-info">Debug: @ViewBag.DebugMessage</div>
+    }
 
     @if (Model != null && Model.Any())
     {
         <div class="list-group">
             @foreach (var kategori in Model)
             {
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="@Url.Action("Detail", "Kategoriler", new { id = kategori.Id })" class="list-group-item list-group-item-action">
                     @kategori.Ad
                 </a>
             }

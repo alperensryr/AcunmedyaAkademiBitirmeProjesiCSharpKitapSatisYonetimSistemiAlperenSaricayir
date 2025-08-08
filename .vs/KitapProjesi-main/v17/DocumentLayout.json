@@ -1,12 +1,49 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\alperen.saricayir\\Desktop\\0hata16warning\\yeter\\KitapProjesi-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alperen.saricayir\\Desktop\\0hata16warning\\yeter\\KitapProjesi-main\\KitapApi\\KitapApi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:KitapApi\\KitapApi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "KitapApi.csproj",
+              "DocumentMoniker": "C:\\Users\\alperen.saricayir\\Desktop\\0hata16warning\\yeter\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
+              "RelativeDocumentMoniker": "KitapApi\\KitapApi.csproj",
+              "ToolTip": "C:\\Users\\alperen.saricayir\\Desktop\\0hata16warning\\yeter\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
+              "RelativeToolTip": "KitapApi\\KitapApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-26T17:46:34.686Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

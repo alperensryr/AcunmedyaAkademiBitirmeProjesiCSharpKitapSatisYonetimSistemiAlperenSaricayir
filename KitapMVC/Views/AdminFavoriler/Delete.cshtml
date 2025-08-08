@@ -1,7 +1,8 @@
-@model KitapMVC.Controllers.AdminFavorilerController.FavoriViewModel
+@model KitapMVC.Models.FavoriViewModel
+
 @{
     ViewData["Title"] = "Favori Sil";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Favori Sil</h2>
 <div class="alert alert-danger">Bu favori kaydını silmek istediğinize emin misiniz?</div>
@@ -15,4 +16,4 @@
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

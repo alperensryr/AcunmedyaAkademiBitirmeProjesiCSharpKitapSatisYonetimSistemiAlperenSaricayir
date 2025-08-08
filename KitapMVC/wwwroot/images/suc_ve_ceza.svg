@@ -1,0 +1,5 @@
+<svg width="200" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="300" fill="#334255"/>
+  <text x="100" y="150" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Suç ve Ceza</text>
+  <text x="100" y="180" font-family="Arial" font-size="12" fill="#cccccc" text-anchor="middle">Fyodor Dostoyevski</text>
+</svg>

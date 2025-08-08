@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KitapMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+033ee0fd631b99f2d391285f3d125d3b9b73f2c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("KitapMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KitapMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

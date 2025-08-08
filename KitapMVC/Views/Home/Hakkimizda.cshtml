@@ -1,18 +1,115 @@
-﻿@{
+@{
     ViewData["Title"] = "Hakkımızda";
 }
 
+<style>
+    /* Karanlık temada inline style'ları override et */
+    [data-theme="dark"] h1[style*="color"] {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] h3[style*="color"] {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] i[style*="color"] {
+        color: #667eea !important;
+    }
+    
+    [data-theme="dark"] .text-muted {
+        color: #adb5bd !important;
+    }
+    
+    [data-theme="dark"] .lead {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] h5 {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] h6 {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] p {
+        color: var(--text-color) !important;
+    }
+    
+    [data-theme="dark"] li {
+        color: var(--text-color) !important;
+    }
+</style>
+
 <div class="container mt-5">
-    <h1 class="my-4">@ViewData["Title"]</h1>
-    <p>
-        KitapMVC projesi, ASP.NET Core MVC ile geliştirilmiş basit bir kitap yönetim sistemidir.
-        Bu proje, bir RESTful API (KitapApi) ile haberleşerek kitap ve kategori bilgilerini yönetir.
-        Amacımız, modern web geliştirme tekniklerini kullanarak dinamik ve kullanıcı dostu bir arayüz oluşturmaktır.
-    </p>
-    <p>
-        Proje kapsamında; Code-First yaklaşımı, Entity Framework Core, Dependency Injection, ASP.NET Core Identity (ilerleyen adımlarda) gibi konular üzerinde çalışılmıştır.
-    </p>
-    <p>
-        Bu sayfa, projenin geliştirilmesi aşamasında bilgilendirme amaçlı eklenmiştir.
-    </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold" style="color: #667eea;">📚 @ViewData["Title"]</h1>
+                <div class="bg-gradient" style="background: linear-gradient(45deg, #667eea, #764ba2); height: 4px; width: 100px; margin: 20px auto; border-radius: 2px;"></div>
+            </div>
+            
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-body p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center mb-4 mb-md-0">
+                            <i class="bi bi-book-half" style="font-size: 5rem; color: #667eea;"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <h3 class="fw-bold mb-3" style="color: #764ba2;">AlperenBooks Hakkında</h3>
+                            <p class="lead text-muted">
+                                AlperenBooks, modern web teknolojileri kullanılarak geliştirilmiş kapsamlı bir kitap yönetim ve e-ticaret platformudur.
+                                ASP.NET Core MVC mimarisi ile RESTful API entegrasyonu sayesinde güçlü ve ölçeklenebilir bir yapı sunar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-gear-fill" style="font-size: 3rem; color: #28a745;"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-center">Teknoloji Stack</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle text-success"></i> ASP.NET Core MVC</li>
+                                <li><i class="bi bi-check-circle text-success"></i> Entity Framework Core</li>
+                                <li><i class="bi bi-check-circle text-success"></i> RESTful API</li>
+                                <li><i class="bi bi-check-circle text-success"></i> Bootstrap 5</li>
+                                <li><i class="bi bi-check-circle text-success"></i> Code-First Yaklaşımı</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-person-badge-fill" style="font-size: 3rem; color: #dc3545;"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-center">Geliştirici</h5>
+                            <div class="text-center">
+                                <h6 class="fw-bold">Alperen Sarıçayır</h6>
+                                <p class="text-muted mb-2">Full Stack Developer</p>
+                                <p class="small">Acunmedya Akademi eğitimi kapsamında geliştirilmiştir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="card-body p-5 text-white text-center">
+                    <h4 class="fw-bold mb-3">🎯 Proje Hedefleri</h4>
+                    <p class="lead mb-0">
+                        Modern web geliştirme tekniklerini kullanarak dinamik, kullanıcı dostu ve güvenli bir kitap e-ticaret platformu oluşturmak.
+                        Dependency Injection, Authentication ve Authorization gibi ileri seviye konuları uygulamak.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

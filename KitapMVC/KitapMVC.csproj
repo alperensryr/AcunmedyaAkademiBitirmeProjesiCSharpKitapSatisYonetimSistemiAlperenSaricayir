@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    <DisableStaticWebAssetProjectReferences>true</DisableStaticWebAssetProjectReferences>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\KitapApi\KitapApi.csproj" />
-  </ItemGroup>
+  <!-- KitapApi referansı kaldırıldı ve entity sınıfları KitapMVC içine taşındı -->
 
 </Project>

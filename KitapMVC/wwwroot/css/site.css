@@ -29,3 +29,97 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Karanlık tema için genel yazı rengi düzeltmeleri */
+[data-theme="dark"] {
+  color: #ffffff;
+}
+
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3, 
+[data-theme="dark"] h4, 
+[data-theme="dark"] h5, 
+[data-theme="dark"] h6 {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] p {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #adb5bd !important;
+}
+
+[data-theme="dark"] a {
+  color: #74b9ff;
+}
+
+[data-theme="dark"] a:hover {
+  color: #0984e3;
+}
+
+[data-theme="dark"] .card-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .card-text {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .lead {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] dt {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] dd {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] small {
+  color: #adb5bd !important;
+}
+
+[data-theme="dark"] .small {
+  color: #adb5bd !important;
+}
+
+[data-theme="dark"] td {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] th {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .display-1,
+[data-theme="dark"] .display-2,
+[data-theme="dark"] .display-3,
+[data-theme="dark"] .display-4,
+[data-theme="dark"] .display-5,
+[data-theme="dark"] .display-6 {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .fw-bold {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .list-group-item {
+  background-color: #2c3034 !important;
+  color: #ffffff !important;
+  border-color: #495057 !important;
+}
+
+[data-theme="dark"] .list-group-item:hover {
+  background-color: #495057 !important;
+}
+
+/* Inline style'ları override et */
+[data-theme="dark"] *[style*="color"] {
+  color: #ffffff !important;
+}

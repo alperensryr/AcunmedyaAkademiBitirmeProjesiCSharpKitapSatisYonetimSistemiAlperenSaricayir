@@ -9,169 +9,169 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = KitapMVC
 build_property.RootNamespace = KitapMVC
-build_property.ProjectDir = C:\Users\alperen.saricayir\Downloads\KitapProjesi-main\KitapMVC\
+build_property.ProjectDir = C:\Users\alperen.saricayir\Desktop\0hata16warning\yeter\KitapProjesi-main\KitapMVC\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\alperen.saricayir\Downloads\KitapProjesi-main\KitapMVC
+build_property.MSBuildProjectDirectory = C:\Users\alperen.saricayir\Desktop\0hata16warning\yeter\KitapProjesi-main\KitapMVC
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminDashboard/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminDashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Delete.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5GYXZvcmlsZXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Details.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5GYXZvcmlsZXJcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminFavoriler/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5GYXZvcmlsZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Create.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LYXRlZ29yaWxlclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Delete.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LYXRlZ29yaWxlclxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Details.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LYXRlZ29yaWxlclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Edit.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LYXRlZ29yaWxlclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKategoriler/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LYXRlZ29yaWxlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Create.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LaXRhcGxhclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Delete.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LaXRhcGxhclxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Details.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LaXRhcGxhclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Edit.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LaXRhcGxhclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKitaplar/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LaXRhcGxhclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Create.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LdWxsYW5pY2lsYXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Delete.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LdWxsYW5pY2lsYXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Details.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LdWxsYW5pY2lsYXJcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Edit.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LdWxsYW5pY2lsYXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminKullanicilar/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5LdWxsYW5pY2lsYXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Delete.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaXBhcmlzbGVyXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Details.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaXBhcmlzbGVyXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/AdminSiparisler/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaXBhcmlzbGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Favoriler/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Favoriler/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3JpbGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Home/BizeUlasin.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Home/BizeUlasin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCaXplVWxhc2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Home/Hakkimizda.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Home/Hakkimizda.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIYWtraW1pemRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Home/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Home/Privacy.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Kategoriler/Detail.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Kategoriler/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlsZXJcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Kategoriler/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Kategoriler/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlsZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Kitaplar/Detail.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Kitaplar/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBsYXJcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Kitaplar/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Kitaplar/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBsYXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Sepet/Index.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Sepet/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VwZXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Sepet/SiparisiTamamla.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Sepet/SiparisiTamamla.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VwZXRcU2lwYXJpc2lUYW1hbWxhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Shared/Error.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/_ViewImports.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/_ViewStart.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alperen.saricayir/Downloads/KitapProjesi-main/KitapMVC/Views/Shared/_Layout.cshtml]
+[C:/Users/alperen.saricayir/Desktop/0hata16warning/yeter/KitapProjesi-main/KitapMVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-4hdbypm28s

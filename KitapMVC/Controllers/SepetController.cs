@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using KitapApi.Entities; // SepetItem ve Kitap modelini kullanmak için
+using Microsoft.AspNetCore.Mvc;
+using KitapMVC.Models.Entities; // SepetItem ve Kitap modelini kullanmak için
 using KitapMVC.Services; // KitapApiService kullanmak için
 using System.Text.Json; // Session'a JSON olarak kaydetmek için
 
@@ -7,10 +7,10 @@ namespace KitapMVC.Controllers
 {
     public class SepetController : Controller
     {
-        private readonly KitapApiService _kitapApiService;
+        private readonly IKullaniciApiService _kitapApiService;
         private const string SepetSessionKey = "Sepet"; // Session anahtarı
 
-        public SepetController(KitapApiService kitapApiService)
+        public SepetController(IKullaniciApiService kitapApiService)
         {
             _kitapApiService = kitapApiService;
         }
@@ -72,6 +72,7 @@ namespace KitapMVC.Controllers
 
         // Sepetten ürün silme metodu
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SepettenSil(int kitapId)
         {
             List<SepetItem> sepet = GetSepetFromSession();
@@ -140,7 +141,7 @@ namespace KitapMVC.Controllers
             if (kullanici == null)
             {
                 // Yeni kullanıcı kaydı
-                kullanici = await _kitapApiService.RegisterAsync(new KitapApi.Entities.Kullanici
+                kullanici = await _kitapApiService.RegisterAsync(new KitapMVC.Models.Entities.Kullanici
                 {
                     AdSoyad = adSoyad,
                     Email = email,
@@ -154,12 +155,13 @@ namespace KitapMVC.Controllers
                 return RedirectToAction("Index");
             }
             // Sipariş ve detaylarını hazırla
-            var siparis = new KitapApi.Entities.Siparis
+            var siparis = new KitapMVC.Models.Entities.Siparis
             {
                 KullaniciId = kullanici.Id,
                 SiparisTarihi = DateTime.Now,
                 ToplamTutar = sepet.Sum(x => x.ToplamFiyat),
-                SiparisDetaylari = sepet.Select(item => new KitapApi.Entities.SiparisDetay
+                Durum = "Beklemede",
+                SiparisDetaylari = sepet.Select(item => new KitapMVC.Models.Entities.SiparisDetay
                 {
                     KitapId = item.KitapId,
                     Adet = item.Adet,

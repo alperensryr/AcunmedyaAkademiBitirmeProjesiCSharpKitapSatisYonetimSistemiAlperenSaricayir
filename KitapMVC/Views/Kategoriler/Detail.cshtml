@@ -1,4 +1,4 @@
-﻿@model KitapApi.Entities.Kategori
+@model KitapMVC.Models.KategoriViewModel
 @{
     ViewData["Title"] = Model.Ad;
 }
@@ -17,6 +17,61 @@
             </dl>
         </div>
     </div>
+    
+    <h3 class="mt-4">Bu Kategorideki Kitaplar (@Model.Kitaplar.Count adet)</h3>
+    @if (Model.Kitaplar.Any())
+    {
+        <div class="row">
+            @foreach (var kitap in Model.Kitaplar)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(kitap.ResimUrl))
+                        {
+                            <img src="@kitap.ResimUrl" class="card-img-top" alt="@kitap.Ad" style="height: 200px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span class="text-muted">Resim Yok</span>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@kitap.Ad</h5>
+                            <p class="card-text">
+                                <strong>Yazar:</strong> @kitap.Yazar<br>
+                                <strong>Fiyat:</strong> @kitap.Fiyat.ToString("C")
+                            </p>
+                            @if (!string.IsNullOrEmpty(kitap.Aciklama))
+                            {
+                                <p class="card-text"><small class="text-muted">@kitap.Aciklama</small></p>
+                            }
+                        </div>
+                        <div class="card-footer text-center">
+                            <form asp-controller="Sepet" asp-action="SepeteEkle" method="post" class="d-inline">
+                                <input type="hidden" name="kitapId" value="@kitap.Id" />
+                                <input type="hidden" name="adet" value="1" />
+                                <button type="submit" class="btn btn-primary btn-sm">Sepete Ekle</button>
+                            </form>
+                            <form asp-controller="Favoriler" asp-action="Ekle" method="post" class="d-inline">
+                                <input type="hidden" name="kitapId" value="@kitap.Id" />
+                                <input type="hidden" name="kullaniciId" value="@(ViewBag.KullaniciId ?? 0)" />
+                                <button type="submit" class="btn btn-warning btn-sm" @(ViewBag.KullaniciId == null ? "disabled" : "")>Favorilere Ekle</button>
+                            </form>
+                            <a asp-controller="Kitaplar" asp-action="Detail" asp-route-id="@kitap.Id" class="btn btn-secondary btn-sm">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> Bu kategoride henüz kitap bulunmamaktadır.
+        </div>
+    }
+    
     <div class="mt-4">
         <a asp-action="Index" class="btn btn-outline-secondary">Listeye Geri Dön</a>
     </div>

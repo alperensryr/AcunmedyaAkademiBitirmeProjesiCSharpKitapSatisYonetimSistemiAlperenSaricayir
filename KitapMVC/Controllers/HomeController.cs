@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using KitapMVC.Models; // Bu satýr zaten olmalý
+using KitapMVC.Models; // Bu satï¿½r zaten olmalï¿½
 
 namespace KitapMVC.Controllers
 {
@@ -33,14 +33,25 @@ namespace KitapMVC.Controllers
 
         public IActionResult Hakkimizda()
         {
-            ViewData["Title"] = "Hakkýmýzda"; // Sayfa baþlýðýný belirleyelim
+            ViewData["Title"] = "Hakkï¿½mï¿½zda"; // Sayfa baï¿½lï¿½ï¿½ï¿½nï¿½ belirleyelim
             return View();
         }
 
         public IActionResult BizeUlasin()
         {
-            ViewData["Title"] = "Bize Ulaþýn"; // Sayfa baþlýðýný belirleyelim
+            ViewData["Title"] = "Bize UlaÅŸÄ±n"; // Sayfa baÅŸlÄ±ÄŸÄ±nÄ± belirleyelim
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SetUserTheme(string theme)
+        {
+            if (theme == "dark" || theme == "light")
+            {
+                HttpContext.Session.SetString("UserTheme", theme);
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
 
         // ---------------------------------------------

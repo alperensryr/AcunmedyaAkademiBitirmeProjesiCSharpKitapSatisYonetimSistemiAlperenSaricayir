@@ -1,8 +1,26 @@
-@model IEnumerable<KitapMVC.Controllers.AdminKitaplarController.KitapViewModel>
+@model IEnumerable<KitapMVC.Models.Entities.Kitap>
+
 @{
     ViewData["Title"] = "Kitaplar";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <h2>Kitap Listesi</h2>
 <a class="btn btn-primary mb-3" asp-action="Create">Yeni Kitap Ekle</a>
 <table class="table table-bordered table-striped">
@@ -17,20 +35,29 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Ad</td>
+                <td>@item.Yazar</td>
+                <td>@item.Fiyat.ToString("C")</td>
+                <td>@(item.Kategori?.Ad ?? "Kategori Yok")</td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detay</a>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    }
+    else
     {
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Ad</td>
-            <td>@item.Yazar</td>
-            <td>@item.Fiyat.ToString("C")</td>
-            <td>@item.KategoriAd</td>
-            <td>
-                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detay</a>
-                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
-                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
-            </td>
+            <td colspan="6" class="text-center">Henüz kitap eklenmemiş.</td>
         </tr>
     }
     </tbody>
-</table> 
+</table>

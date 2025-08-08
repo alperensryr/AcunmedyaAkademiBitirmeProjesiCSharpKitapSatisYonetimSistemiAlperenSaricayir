@@ -1,13 +1,16 @@
-@model KitapMVC.Controllers.AdminSiparislerController.SiparisViewModel
+@model KitapMVC.Models.SiparisViewModel
+
 @{
     ViewData["Title"] = "Sipariş Sil";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Sipariş Sil</h2>
 <div class="alert alert-danger">Bu siparişi silmek istediğinize emin misiniz?</div>
 <dl class="row">
     <dt class="col-sm-2">Kullanıcı</dt>
     <dd class="col-sm-10">@Model.KullaniciAd</dd>
+    <dt class="col-sm-2">E-posta</dt>
+    <dd class="col-sm-10">@Model.KullaniciEmail</dd>
     <dt class="col-sm-2">Sipariş Tarihi</dt>
     <dd class="col-sm-10">@Model.SiparisTarihi</dd>
     <dt class="col-sm-2">Toplam Tutar</dt>
@@ -17,4 +20,4 @@
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

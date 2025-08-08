@@ -1,19 +1,280 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KitapMVC</title>
+    <title>@ViewData["Title"] - AlperenBooks</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KitapMVC.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> @* Bootstrap Icons için eklemiştik *@
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --navbar-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --navbar-text: #495057;
+            --footer-bg: #f8f9fa;
+            --primary-gradient-start: #667eea;
+            --primary-gradient-end: #764ba2;
+            --accent-gradient-start: #ff6b6b;
+            --accent-gradient-end: #ee5a24;
+            --secondary-gradient-start: #f093fb;
+            --secondary-gradient-end: #f5576c;
+            --info-gradient-start: #4facfe;
+            --info-gradient-end: #00f2fe;
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1d23;
+            --text-color: #ffffff;
+            --card-bg: #2c3034;
+            --border-color: #495057;
+            --navbar-bg: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            --navbar-text: #ffffff;
+            --footer-bg: #1a1d23;
+            --primary-gradient-start: #4c63d2;
+            --primary-gradient-end: #5a4fcf;
+            --accent-gradient-start: #e55656;
+            --accent-gradient-end: #d63031;
+            --secondary-gradient-start: #e17055;
+            --secondary-gradient-end: #d63031;
+            --info-gradient-start: #74b9ff;
+            --info-gradient-end: #0984e3;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .modern-nav-link {
+            color: var(--navbar-text) !important;
+            font-weight: 500;
+            padding: 8px 16px !important;
+            margin: 0 4px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-nav-link:hover {
+            color: #fff !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .modern-nav-link i {
+            margin-right: 6px;
+            font-size: 1.1em;
+        }
+        
+        .navbar {
+            background: var(--navbar-bg) !important;
+            border-bottom: 3px solid #667eea !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1) !important;
+            transition: background 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--navbar-text);
+            color: var(--navbar-text);
+            border-radius: 50px;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--navbar-text);
+            color: var(--bg-color);
+            transform: scale(1.1);
+        }
+        
+        .hero-gradient {
+            transition: background 0.3s;
+        }
+        
+        [data-theme="dark"] .hero-gradient {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+        }
+        
+        .footer {
+            background-color: var(--footer-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .alert {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        /* Navbar yazıları için karanlık tema desteği */
+        .navbar-nav .nav-link {
+            color: var(--navbar-text) !important;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--navbar-text) !important;
+        }
+        
+        [data-theme="dark"] .navbar-nav .nav-link {
+            color: #ffffff !important;
+        }
+        
+        [data-theme="dark"] .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+        }
+        
+        /* Navbar brand için karanlık tema */
+        .navbar-brand {
+            color: var(--navbar-text) !important;
+        }
+        
+        [data-theme="dark"] .navbar-brand {
+            color: #ffffff !important;
+        }
+        
+        /* Karanlık temada tüm yazılar için genel düzeltmeler */
+        [data-theme="dark"] h1, 
+        [data-theme="dark"] h2, 
+        [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, 
+        [data-theme="dark"] h5, 
+        [data-theme="dark"] h6 {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] p {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .text-muted {
+            color: #adb5bd !important;
+        }
+        
+        [data-theme="dark"] .card-title {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .card-text {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .lead {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] dt {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] dd {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .list-group-item {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+        }
+        
+        [data-theme="dark"] .list-group-item:hover {
+            background-color: var(--border-color) !important;
+        }
+        
+        [data-theme="dark"] .display-1,
+        [data-theme="dark"] .display-2,
+        [data-theme="dark"] .display-3,
+        [data-theme="dark"] .display-4,
+        [data-theme="dark"] .display-5,
+        [data-theme="dark"] .display-6 {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] small {
+            color: #adb5bd !important;
+        }
+        
+        [data-theme="dark"] .small {
+            color: #adb5bd !important;
+        }
+        
+        /* Table için karanlık tema desteği */
+        .table {
+            color: var(--text-color);
+        }
+        
+        .table-bordered {
+            border-color: var(--border-color);
+        }
+        
+        .table-bordered th,
+        .table-bordered td {
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .table {
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .table-bordered {
+            border-color: var(--border-color) !important;
+        }
+        
+        [data-theme="dark"] .table-bordered th,
+        [data-theme="dark"] .table-bordered td {
+            border-color: var(--border-color) !important;
+            color: var(--text-color) !important;
+        }
+        
+        [data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+        
+        [data-theme="dark"] .table thead th {
+            color: var(--text-color) !important;
+            background-color: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+        }
+        
+        /* Navbar brand inline style override */
+        [data-theme="dark"] .navbar-brand[style*="color"] {
+            color: #ffffff !important;
+        }
+        
+        [data-theme="dark"] .navbar-brand i {
+            color: #ffffff !important;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KitapMVC</a>
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index" style="color: #667eea; font-size: 1.5rem;">
+                    <i class="bi bi-book-half" style="color: #764ba2;"></i> AlperenBooks
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,54 +282,93 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                            <a class="nav-link modern-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door"></i> Anasayfa
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kitaplar" asp-action="Index">Kitaplar</a>
+                            <a class="nav-link modern-nav-link" asp-area="" asp-controller="Kitaplar" asp-action="Index">
+                                <i class="bi bi-book"></i> Kitaplar
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kategoriler" asp-action="Index">Kategoriler</a>
+                            <a class="nav-link modern-nav-link" asp-area="" asp-controller="Kategoriler" asp-action="Index">
+                                <i class="bi bi-grid-3x3-gap"></i> Kategoriler
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hakkimizda">Hakkımızda</a>
+                            <a class="nav-link modern-nav-link" asp-area="" asp-controller="Home" asp-action="Hakkimizda">
+                                <i class="bi bi-info-circle"></i> Hakkımızda
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BizeUlasin">Bize Ulaşın</a>
+                            <a class="nav-link modern-nav-link" asp-area="" asp-controller="Home" asp-action="BizeUlasin">
+                                <i class="bi bi-envelope"></i> Bize Ulaşın
+                            </a>
                         </li>
-                        <li class="nav-item ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Favoriler" asp-action="Index">
+                                <i class="bi bi-heart"></i> Favorilerim
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Sepet" asp-action="Index">
                                 <i class="bi bi-cart"></i> Sepetim (<span id="sepetUrunSayisi">0</span>)
                             </a>
                         </li>
+                        <li class="nav-item">
+                            @if (User.IsInRole("Admin") || Context.Session.GetString("KullaniciRol") == "Admin")
+                            {
+                                <a class="nav-link" asp-controller="AdminDashboard" asp-action="Index" style="color: #28a745; font-weight: bold; border: 2px solid #28a745; border-radius: 5px; padding: 5px 10px; margin-left: 10px;">
+                                    <i class="bi bi-shield-check"></i> ✅ Admin Olarak Giriş Yapıldı
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="nav-link" asp-controller="Admin" asp-action="Login" style="color: #dc3545; font-weight: bold; border: 2px solid #dc3545; border-radius: 5px; padding: 5px 10px; margin-left: 10px;">
+                                    <i class="bi bi-shield-lock"></i> 🔐 Admin Paneli
+                                </a>
+                            }
+                        </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (Context.Session.GetInt32("KullaniciId") != null)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link">
+                                    <i class="bi bi-person"></i> Hoş geldiniz, @Context.Session.GetString("KullaniciAd")
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Kullanici" asp-action="Logout">
+                                    <i class="bi bi-box-arrow-right"></i> Çıkış Yap
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Kullanici" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right"></i> Giriş Yap
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Kullanici" asp-action="Register">
+                                    <i class="bi bi-person-plus"></i> Kayıt Ol
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <button class="btn theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
+                        <i id="theme-icon" class="bi bi-moon-fill"></i>
+                        <span class="theme-text">Tema</span>
+                    </button>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        @* TempData Bildirimleri BURADA Başlıyor *@
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                @TempData["SuccessMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                @TempData["ErrorMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-        @if (TempData["InfoMessage"] != null)
-        {
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                @TempData["InfoMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-        @* TempData Bildirimleri BURADA Bitiyor *@
+        @* TempData mesajları her view'da ayrı ayrı gösterilecek *@
 
         <main role="main" class="pb-3">
             @RenderBody()
@@ -77,7 +377,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - KitapMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - AlperenBooks - <a asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik Politikası</a> - 
+            @if (User.IsInRole("Admin") || Context.Session.GetString("KullaniciRol") == "Admin")
+            {
+                <a asp-area="" asp-controller="AdminDashboard" asp-action="Index" style="font-weight: bold; font-size: 16px; color: #28a745; text-decoration: none; padding: 5px 10px; border: 2px solid #28a745; border-radius: 5px; background-color: #fff;">🔐 Admin Paneli</a>
+            }
+            else
+            {
+                <a asp-area="" asp-controller="Admin" asp-action="Login" style="font-weight: bold; font-size: 16px; color: #dc3545; text-decoration: none; padding: 5px 10px; border: 2px solid #dc3545; border-radius: 5px; background-color: #fff;">🔐 Admin Paneli</a>
+            }
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -88,6 +396,7 @@
     <script>
         $(document).ready(function () {
             updateCartCount();
+            loadTheme();
         });
 
         function updateCartCount() {
@@ -101,6 +410,33 @@
                     $('#sepetUrunSayisi').text('?');
                 }
             });
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            if (newTheme === 'dark') {
+                icon.className = 'bi bi-sun-fill';
+            } else {
+                icon.className = 'bi bi-moon-fill';
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            if (savedTheme === 'dark') {
+                icon.className = 'bi bi-sun-fill';
+            } else {
+                icon.className = 'bi bi-moon-fill';
+            }
         }
     </script>
     @await RenderSectionAsync("Scripts", required: false)

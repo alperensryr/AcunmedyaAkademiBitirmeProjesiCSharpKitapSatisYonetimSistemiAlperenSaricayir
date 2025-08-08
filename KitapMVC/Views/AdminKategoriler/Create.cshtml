@@ -1,7 +1,8 @@
-@model KitapMVC.Controllers.AdminKategorilerController.KategoriViewModel
+@model KitapMVC.Models.KategoriViewModel
+
 @{
     ViewData["Title"] = "Yeni Kategori Ekle";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Yeni Kategori Ekle</h2>
 <form asp-action="Create" method="post">
@@ -17,4 +18,4 @@
     </div>
     <button type="submit" class="btn btn-success">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

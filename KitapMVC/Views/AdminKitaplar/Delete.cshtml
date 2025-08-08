@@ -1,7 +1,8 @@
-@model KitapMVC.Controllers.AdminKitaplarController.KitapViewModel
+@model KitapMVC.Models.KitapViewModel
+
 @{
     ViewData["Title"] = "Kitap Sil";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kitap Sil</h2>
 <div class="alert alert-danger">Bu kitabı silmek istediğinize emin misiniz?</div>
@@ -19,4 +20,4 @@
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

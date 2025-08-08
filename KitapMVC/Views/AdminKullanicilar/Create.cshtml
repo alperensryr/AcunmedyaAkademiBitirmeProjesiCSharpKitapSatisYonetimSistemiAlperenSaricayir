@@ -1,7 +1,8 @@
-@model KitapMVC.Controllers.AdminKullanicilarController.KullaniciViewModel
+@model KitapMVC.Models.KullaniciViewModel
+
 @{
     ViewData["Title"] = "Yeni Kullanıcı Ekle";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Yeni Kullanıcı Ekle</h2>
 <form asp-action="Create" method="post">
@@ -16,6 +17,11 @@
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="mb-3">
+        <label asp-for="Sifre" class="form-label">Şifre</label>
+        <input asp-for="Sifre" type="password" class="form-control" />
+        <span asp-validation-for="Sifre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
         <label asp-for="Rol" class="form-label">Rol</label>
         <select asp-for="Rol" class="form-select">
             <option value="User">User</option>
@@ -25,4 +31,4 @@
     </div>
     <button type="submit" class="btn btn-success">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

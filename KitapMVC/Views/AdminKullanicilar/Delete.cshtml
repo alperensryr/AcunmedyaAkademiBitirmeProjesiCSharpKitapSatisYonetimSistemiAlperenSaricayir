@@ -1,20 +1,54 @@
-@model KitapMVC.Controllers.AdminKullanicilarController.KullaniciViewModel
+@model KitapMVC.Models.KullaniciViewModel
+
 @{
     ViewData["Title"] = "Kullanıcı Sil";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kullanıcı Sil</h2>
+
+@if (TempData["DebugInfo"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Debug Info:</strong><br>
+        @Html.Raw(TempData["DebugInfo"])
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Hata:</strong> @TempData["ErrorMessage"]
+    </div>
+}
+
 <div class="alert alert-danger">Bu kullanıcıyı silmek istediğinize emin misiniz?</div>
-<dl class="row">
-    <dt class="col-sm-2">Ad Soyad</dt>
-    <dd class="col-sm-10">@Model.AdSoyad</dd>
-    <dt class="col-sm-2">Email</dt>
-    <dd class="col-sm-10">@Model.Email</dd>
-    <dt class="col-sm-2">Rol</dt>
-    <dd class="col-sm-10">@Model.Rol</dd>
-</dl>
+
+@if (Model != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">Ad Soyad</dt>
+        <dd class="col-sm-10">@Model.AdSoyad</dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+        <dt class="col-sm-2">Rol</dt>
+        <dd class="col-sm-10">@Model.Rol</dd>
+    </dl>
+}
+else
+{
+    <div class="alert alert-warning">
+        <strong>Uyarı:</strong> Model null - Kullanıcı bilgileri yüklenemedi.
+    </div>
+}
 <form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Sil</button>
+    @if (Model != null)
+    {
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-danger" disabled>Sil (Model Null)</button>
+    }
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

@@ -1,7 +1,7 @@
-@model KitapMVC.Controllers.AdminKategorilerController.KategoriViewModel
+@model KitapMVC.Models.KategoriViewModel
 @{
     ViewData["Title"] = "Kategori Sil";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kategori Sil</h2>
 <div class="alert alert-danger">Bu kategoriyi silmek istediğinize emin misiniz?</div>
@@ -15,4 +15,4 @@
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\KitapApi",
     "\\KitapMVC",
-    "\\KitapMVC\\Controllers"
+    "\\KitapMVC\\Controllers",
+    "\\KitapMVC\\Services"
   ],
-  "SelectedNode": "\\KitapMVC\\Controllers\\AdminController.cs",
+  "SelectedNode": "\\KitapMVC\\Services\\KitapApiService.cs",
   "PreviewInSolutionExplorer": false
 }

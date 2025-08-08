@@ -1,110 +1,93 @@
+
 using KitapMVC.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    ContentRootPath = Directory.GetCurrentDirectory(),
+    WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
+});
 
+// KitapApiService iÃ§in HttpClient yapÄ±landÄ±rmasÄ±
 builder.Services.AddHttpClient<KitapApiService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7001");
+    var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? "http://localhost:7011/";
+    client.BaseAddress = new Uri(apiBaseUrl);
+    client.Timeout = TimeSpan.FromSeconds(30);
+    Console.WriteLine($"API Base Address set to: {client.BaseAddress}");
+})
+.ConfigurePrimaryHttpMessageHandler(() =>
+{
+    var handler = new HttpClientHandler();
+    // Development ortamÄ±nda SSL sertifika doÄŸrulamasÄ±nÄ± atla
+    if (builder.Environment.IsDevelopment())
+    {
+        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+    }
+    return handler;
 });
 
+// IHttpContextAccessor'Ä± ekle
+builder.Services.AddHttpContextAccessor();
+
+// KitapApiService'i hem kendisi hem de interface olarak kaydet
+builder.Services.AddScoped<KitapApiService>();
+builder.Services.AddScoped<IKullaniciApiService, KitapApiService>();
+builder.Services.AddScoped<IRaporApiService, KitapApiService>();
+
+// Cookie tabanlÄ± kimlik doÄŸrulama ekle
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.Cookie.Name = "KitapMVC.AuthCookie";
+        options.LoginPath = "/Admin/Login";
+        options.AccessDeniedPath = "/Admin/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    });
+
+// MVC ve Session servislerini ekle
 builder.Services.AddControllersWithViews();
-// ----- BURAYA EKLENECEK KODLAR (AddHttpClient'ýn altýna ekleyebilirsin) -----
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturumun 30 dakika boþta kalýrsa sona ermesini saðlar
-    options.Cookie.HttpOnly = true; // Tarayýcý tarafýndaki scriptlerin cookie'ye eriþimini engeller
-    options.Cookie.IsEssential = true; // GDPR uyumluluðu için, session cookie'sinin gerekli olduðunu belirtir
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
-// -------------------------------------------------------------------------
+
+// Uygulama oluÅŸtur ve middleware'leri yapÄ±landÄ±r
 var app = builder.Build();
-// ----- BURAYA EKLENECEK KOD -----
-app.UseSession(); // Session servisini kullan
-// ---------------------------------
+
+// GeliÅŸtirme ortamÄ±na gÃ¶re hata yÃ¶netimini yapÄ±landÄ±r
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Middleware pipeline'Ä±nÄ± yapÄ±landÄ±r
+// HTTP kullanÄ±ldÄ±ÄŸÄ± iÃ§in HTTPS yÃ¶nlendirmesini devre dÄ±ÅŸÄ± bÄ±rakÄ±yoruz
+// app.UseHttpsRedirection();
+Console.WriteLine($"API Base URL from config: {app.Configuration["ApiSettings:BaseUrl"]}");
+
+// HTTP isteklerini log'la
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"HTTP {context.Request.Method} {context.Request.Path} - {DateTime.Now:HH:mm:ss}");
+    await next();
+});
+
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
+// Route yapÄ±landÄ±rmasÄ±
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// UygulamayÄ± baÅŸlat
 app.Run();
-//using KitapMVC.Services;
-
-//var builder = WebApplication.CreateBuilder(args);
-
-//// ----- AddHttpClient KODU BURADA, DOÐRU PORT NUMARASIYLA -----
-//builder.Services.AddHttpClient<KitapApiService>(client =>
-//{
-//    // API'nin çalýþtýðý, daha önce sabitlediðimiz adresi yazýyoruz
-//    client.BaseAddress = new Uri("https://localhost:7001");
-//});
-//// -------------------------------------------------------------
-
-//// Add services to the container.
-//builder.Services.AddControllersWithViews();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    app.UseHsts();
-//}
-
-//app.UseHttpsRedirection();
-//app.UseStaticFiles(); // Bu satýr önemli, statik dosyalar için
-//app.UseRouting();
-
-//app.UseAuthorization();
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//app.Run();
-////using KitapMVC.Services;
-////var builder = WebApplication.CreateBuilder(args);
-////// ----- BURAYA EKLENECEK KOD -----
-////builder.Services.AddHttpClient<KitapApiService>(client =>
-////{
-////    // KitapApi'nin çalýþtýðý adresi buraya yazýyoruz.
-////    // Bu adresi KitapApi projesinin launchSettings.json dosyasýndan bulabilirsin.
-////    client.BaseAddress = new Uri("https://localhost:7158");
-////});
-////// ------------------------------------
-////// Add services to the container.
-////builder.Services.AddControllersWithViews();
-
-////var app = builder.Build();
-
-////// Configure the HTTP request pipeline.
-////if (!app.Environment.IsDevelopment())
-////{
-////    app.UseExceptionHandler("/Home/Error");
-////    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-////    app.UseHsts();
-////}
-
-////app.UseHttpsRedirection();
-////app.UseRouting();
-
-////app.UseAuthorization();
-
-////app.MapStaticAssets();
-
-////app.MapControllerRoute(
-////    name: "default",
-////    pattern: "{controller=Home}/{action=Index}/{id?}")
-////    .WithStaticAssets();
-
-
-////app.Run();

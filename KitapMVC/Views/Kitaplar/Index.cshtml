@@ -1,19 +1,16 @@
-﻿@model List<KitapApi.Entities.Kitap>
+@model List<KitapMVC.Models.Entities.Kitap>
 @{
     ViewData["Title"] = "Kitaplar";
 }
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
+
 @if (ViewData["Aciklama"] != null)
 {
     <div class="alert alert-info">@ViewData["Aciklama"]</div>
+}
+@if (ViewBag.DebugMessage != null)
+{
+    <div class="alert alert-warning">Debug: @ViewBag.DebugMessage</div>
 }
 
 <div class="container">
@@ -26,27 +23,33 @@
             {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#">
+                        <a asp-controller="Kitaplar" asp-action="Detail" asp-route-id="@kitap.Id">
                             <img class="card-img-top" src="@(kitap.ResimUrl ?? "https://via.placeholder.com/700x400")" alt="@kitap.Ad">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">@kitap.Ad</a>
+                                <a asp-controller="Kitaplar" asp-action="Detail" asp-route-id="@kitap.Id">@kitap.Ad</a>
                             </h4>
                             <h5>@kitap.Fiyat.ToString("c")</h5>
                             <p class="card-text">Yazar: @kitap.Yazar</p>
                             <p class="card-text"><small class="text-muted">Kategori: @kitap.Kategori?.Ad</small></p>
                         </div>
                         <div class="card-footer text-center">
-                            <form asp-controller="Sepet" asp-action="SepeteEkle" method="post" class="d-inline">
+                            <form asp-controller="Sepet" asp-action="SepeteEkle" method="post" class="d-inline sepet-form">
                                 <input type="hidden" name="kitapId" value="@kitap.Id" />
                                 <input type="hidden" name="adet" value="1" />
-                                <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+                                <button type="submit" class="btn btn-primary sepet-btn">
+                                    <span class="btn-text">Sepete Ekle</span>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
                             </form>
-                            <form asp-controller="Favoriler" asp-action="Ekle" method="post" class="d-inline">
+                            <form asp-controller="Favoriler" asp-action="Ekle" method="post" class="d-inline favori-form">
                                 <input type="hidden" name="kitapId" value="@kitap.Id" />
                                 <input type="hidden" name="kullaniciId" value="@(ViewBag.KullaniciId ?? 0)" />
-                                <button type="submit" class="btn btn-warning" @(ViewBag.KullaniciId == null ? "disabled" : "")>Favorilere Ekle</button>
+                                <button type="submit" class="btn btn-warning favori-btn" @(ViewBag.KullaniciId == null ? "disabled" : "")>
+                                    <span class="btn-text">Favorilere Ekle</span>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
                             </form>
                             <a asp-controller="Kitaplar" asp-action="Detail" asp-route-id="@kitap.Id" class="btn btn-secondary">Detaylar</a>
                         </div>
@@ -57,8 +60,53 @@
         else
         {
             <div class="col-12">
-                <p>Gösterilecek kitap bulunamadı.</p>
+                <div class="alert alert-info text-center">
+                    <h4>Henüz kitap bulunmamaktadır.</h4>
+                </div>
             </div>
         }
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Sepete ekle butonları için loading state
+            $('.sepet-form').on('submit', function() {
+                var btn = $(this).find('.sepet-btn');
+                btn.prop('disabled', true);
+                btn.find('.btn-text').text('Ekleniyor...');
+                btn.find('.spinner-border').removeClass('d-none');
+            });
+            
+            // Favorilere ekle butonları için loading state
+            $('.favori-form').on('submit', function() {
+                var btn = $(this).find('.favori-btn');
+                if (!btn.prop('disabled')) {
+                    btn.prop('disabled', true);
+                    btn.find('.btn-text').text('Ekleniyor...');
+                    btn.find('.spinner-border').removeClass('d-none');
+                }
+            });
+            
+            // Resim yükleme hatası durumunda placeholder göster
+            $('img.card-img-top').on('error', function() {
+                var $img = $(this);
+                // Eğer zaten placeholder'a çevrilmişse, tekrar değiştirme
+                if (!$img.attr('src').includes('placeholder')) {
+                    $img.attr('src', '/images/placeholder-book.svg');
+                    $img.off('error'); // Error event'ini kaldır, sonsuz döngüyü önle
+                }
+            });
+            
+            // Sayfa yüklendiğinde mevcut resimleri kontrol et
+            $('img.card-img-top').each(function() {
+                var $img = $(this);
+                var src = $img.attr('src');
+                if (!src || src === '' || src === 'null') {
+                    $img.attr('src', '/images/placeholder-book.svg');
+                }
+            });
+        });
+    </script>
+}

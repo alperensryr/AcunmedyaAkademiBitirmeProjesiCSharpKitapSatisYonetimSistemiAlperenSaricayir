@@ -10,7 +10,7 @@
       {
         "Path": "KitapMVC\\KitapMVC.csproj",
         "Action": "Start",
-        "DebugTarget": "https"
+        "DebugTarget": "http"
       }
     ]
   }

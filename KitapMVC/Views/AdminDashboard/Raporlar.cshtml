@@ -1,0 +1,329 @@
+@model KitapMVC.Models.RaporViewModel
+@{
+    ViewData["Title"] = "Raporlar";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><i class="bi bi-graph-up"></i> @ViewData["Title"]</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a asp-controller="AdminDashboard" asp-action="Index" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Dashboard'a Dön
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <!-- İstatistik Kartları -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Toplam Kitap
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ToplamKitap</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-book display-4 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Toplam Kullanıcı
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ToplamKullanici</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-people display-4 text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Bu Ay Sipariş
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.BuAySiparis</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-receipt display-4 text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Toplam Kategori
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ToplamKategori</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-tags display-4 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Grafik Alanı -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Aylık Sipariş Grafiği</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pasta Grafik -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Kategori Dağılımı</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2" style="height: 400px;">
+                    <canvas id="myPieChart" width="100%" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- En Çok Sipariş Edilen Kitaplar Leaderboard -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-warning"><i class="bi bi-trophy"></i> En Çok Sipariş Edilen Kitaplar</h6>
+            </div>
+            <div class="card-body">
+                @if (Model.EnCokSiparisEdilenKitaplar.Any())
+                {
+                    <div class="list-group">
+                        @for (int i = 0; i < Model.EnCokSiparisEdilenKitaplar.Count; i++)
+                        {
+                            var kitap = Model.EnCokSiparisEdilenKitaplar[i];
+                            var medalClass = i == 0 ? "text-warning" : i == 1 ? "text-secondary" : i == 2 ? "text-warning" : "text-muted";
+                            var medalIcon = i == 0 ? "bi-trophy-fill" : i == 1 ? "bi-award-fill" : i == 2 ? "bi-award" : "bi-star";
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge badge-pill me-3 fs-5 @medalClass">
+                                        <i class="bi @medalIcon"></i> @(i + 1)
+                                    </span>
+                                    <div>
+                                        <h6 class="mb-1">@kitap.Kitap.Ad</h6>
+                                        <small class="text-muted">@kitap.Kitap.Yazar</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">@kitap.SiparisAdedi sipariş</span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center text-muted">
+                        <i class="bi bi-inbox display-4"></i>
+                        <p class="mt-2">Henüz sipariş verisi bulunmuyor</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Siparişler -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Son Siparişler</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Sipariş No</th>
+                                <th>Kullanıcı</th>
+                                <th>E-posta</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.SonSiparisler.Any())
+                            {
+                                @foreach (var siparis in Model.SonSiparisler)
+                                {
+                                    <tr>
+                                        <td>#@siparis.Id</td>
+                                        <td>@siparis.Kullanici?.AdSoyad ?? "Bilinmeyen"</td>
+                                        <td>@siparis.Kullanici?.Email ?? "Bilinmeyen Email"</td>
+                                        <td>@siparis.SiparisTarihi.ToString("dd.MM.yyyy")</td>
+                                        <td>
+                                            @if (siparis.Durum == "Tamamlandı")
+                                            {
+                                                <span class="badge bg-success">@siparis.Durum</span>
+                                            }
+                                            else if (siparis.Durum == "Beklemede")
+                                            {
+                                                <span class="badge bg-warning">@siparis.Durum</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">@siparis.Durum</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">Henüz sipariş bulunmuyor</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popüler Kitaplar -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Popüler Kitaplar</h6>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @if (Model.PopulerKitaplar.Any())
+                    {
+                        @foreach (var kitap in Model.PopulerKitaplar)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                 <div>
+                                     <h6 class="mb-1">@kitap.Ad</h6>
+                                     <small>@kitap.Yazar</small>
+                                 </div>
+                                 <span class="badge bg-primary rounded-pill">@kitap.Fiyat.ToString("C")</span>
+                             </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="list-group-item text-center">
+                            <small class="text-muted">Henüz kitap bulunmuyor</small>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df !important;
+    }
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a !important;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc !important;
+    }
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e !important;
+    }
+    .text-gray-800 {
+        color: #5a5c69 !important;
+    }
+    .shadow {
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Çizgi Grafik
+        var ctx = document.getElementById('myAreaChart').getContext('2d');
+        var myAreaChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.AylikSiparisler.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Siparişler',
+                    data: [@Html.Raw(string.Join(",", Model.AylikSiparisler.Values))],
+                    backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Pasta Grafik
+        var ctx2 = document.getElementById('myPieChart').getContext('2d');
+        var myPieChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.KategoriDagilimi.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.KategoriDagilimi.Values))],
+                    backgroundColor: [
+                        '#4e73df',
+                        '#1cc88a',
+                        '#36b9cc',
+                        '#f6c23e',
+                        '#e74a3b',
+                        '#858796',
+                        '#5a5c69'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+}

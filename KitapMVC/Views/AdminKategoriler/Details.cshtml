@@ -1,7 +1,8 @@
-@model KitapMVC.Controllers.AdminKategorilerController.KategoriViewModel
+@model KitapMVC.Models.KategoriViewModel
+
 @{
     ViewData["Title"] = "Kategori Detay";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kategori Detay</h2>
 <dl class="row">
@@ -10,5 +11,49 @@
     <dt class="col-sm-2">Açıklama</dt>
     <dd class="col-sm-10">@Model.Aciklama</dd>
 </dl>
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-<a asp-action="Index" class="btn btn-secondary">Geri</a> 
+
+<h3 class="mt-4">Bu Kategorideki Kitaplar (@Model.Kitaplar.Count adet)</h3>
+@if (Model.Kitaplar.Any())
+{
+    <div class="row">
+        @foreach (var kitap in Model.Kitaplar)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(kitap.ResimUrl))
+                    {
+                        <img src="@kitap.ResimUrl" class="card-img-top" alt="@kitap.Ad" style="height: 200px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <span class="text-muted">Resim Yok</span>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@kitap.Ad</h5>
+                        <p class="card-text">
+                            <strong>Yazar:</strong> @kitap.Yazar<br>
+                            <strong>Fiyat:</strong> @kitap.Fiyat.ToString("C")
+                        </p>
+                        @if (!string.IsNullOrEmpty(kitap.Aciklama))
+                        {
+                            <p class="card-text"><small class="text-muted">@kitap.Aciklama</small></p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> Bu kategoride henüz kitap bulunmamaktadır.
+    </div>
+}
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Geri</a>
+</div>

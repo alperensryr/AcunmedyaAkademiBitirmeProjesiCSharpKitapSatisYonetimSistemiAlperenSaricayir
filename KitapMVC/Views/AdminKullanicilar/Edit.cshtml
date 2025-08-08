@@ -1,8 +1,24 @@
-@model KitapMVC.Controllers.AdminKullanicilarController.KullaniciViewModel
+@model KitapMVC.Models.KullaniciViewModel
 @{
     ViewData["Title"] = "Kullanıcı Düzenle";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <h2>Kullanıcı Düzenle</h2>
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
@@ -17,6 +33,12 @@
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="mb-3">
+        <label asp-for="Sifre" class="form-label">Yeni Şifre (Boş bırakılırsa değişmez)</label>
+        <input asp-for="Sifre" type="password" class="form-control" placeholder="Yeni şifre girin (isteğe bağlı)" />
+        <span asp-validation-for="Sifre" class="text-danger"></span>
+        <small class="form-text text-muted">Şifreyi değiştirmek istemiyorsanız bu alanı boş bırakın.</small>
+    </div>
+    <div class="mb-3">
         <label asp-for="Rol" class="form-label">Rol</label>
         <select asp-for="Rol" class="form-select">
             <option value="User">User</option>
@@ -26,4 +48,4 @@
     </div>
     <button type="submit" class="btn btn-success">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

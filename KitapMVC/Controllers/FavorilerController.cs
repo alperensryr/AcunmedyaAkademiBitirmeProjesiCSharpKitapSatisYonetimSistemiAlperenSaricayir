@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using KitapApi.Entities;
+using KitapMVC.Models.Entities;
 using KitapMVC.Services;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -9,19 +9,32 @@ namespace KitapMVC.Controllers
 {
     public class FavorilerController : Controller
     {
-        private readonly KitapApiService _kitapApiService;
-        public FavorilerController(KitapApiService kitapApiService)
+        private readonly IKullaniciApiService _kitapApiService;
+        public FavorilerController(IKullaniciApiService kitapApiService)
         {
             _kitapApiService = kitapApiService;
         }
 
         // Favorilerim sayfası
-        public async Task<IActionResult> Index(int? kullaniciId)
+        public async Task<IActionResult> Index()
         {
-            // Kullanıcı kimliği parametreyle veya oturumdan alınabilir
+            // Sadece session'dan kullanıcı ID'sini al
+            var sessionKullaniciId = HttpContext.Session.GetInt32("KullaniciId");
+            
+            if (!sessionKullaniciId.HasValue)
+            {
+                // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
+                TempData["ErrorMessage"] = "Favorilerinizi görmek için giriş yapmalısınız.";
+                return RedirectToAction("Login", "Kullanici");
+            }
+            
             var favoriler = await _kitapApiService.GetFavorilerAsync();
-            if (kullaniciId.HasValue)
-                favoriler = favoriler.Where(f => f.KullaniciId == kullaniciId.Value).ToList();
+            Console.WriteLine($"API'den gelen favori sayısı: {favoriler.Count}");
+            
+            // Sadece giriş yapmış kullanıcının favorilerini filtrele
+            favoriler = favoriler.Where(f => f.KullaniciId == sessionKullaniciId.Value).ToList();
+            Console.WriteLine($"Kullanıcı {sessionKullaniciId.Value} için filtrelenmiş favori sayısı: {favoriler.Count}");
+            
             return View(favoriler);
         }
 
@@ -30,9 +43,27 @@ namespace KitapMVC.Controllers
         public async Task<IActionResult> Ekle(int kitapId, int kullaniciId)
         {
             var favori = new Favori { KitapId = kitapId, KullaniciId = kullaniciId };
-            await _kitapApiService.CreateFavoriAsync(favori);
-            TempData["SuccessMessage"] = "Kitap favorilere eklendi!";
-            return Redirect(Request.Headers["Referer"].ToString());
+            var result = await _kitapApiService.CreateFavoriAsync(favori);
+            
+            if (result != null)
+            {
+                TempData["SuccessMessage"] = "Kitap favorilere eklendi!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Favori eklenirken bir hata oluştu.";
+            }
+            
+            // Referer header kontrolü
+            var referer = Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(referer))
+            {
+                return Redirect(referer);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Kitaplar");
+            }
         }
 
         // Favorilerden çıkar
@@ -44,4 +75,4 @@ namespace KitapMVC.Controllers
             return RedirectToAction("Index");
         }
     }
-} 
+}

@@ -1,9 +1,35 @@
-@model KitapMVC.Controllers.AdminKitaplarController.KitapViewModel
+@model KitapMVC.Models.KitapViewModel
 @{
     ViewData["Title"] = "Yeni Kitap Ekle";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["WarningMessage"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["WarningMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <h2>Yeni Kitap Ekle</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Ad" class="form-label"></label>
@@ -22,9 +48,8 @@
     </div>
     <div class="mb-3">
         <label asp-for="KategoriId" class="form-label">Kategori</label>
-        <select asp-for="KategoriId" class="form-select">
-            <option value="">Seçiniz</option>
-            <!-- Kategoriler burada dinamik olarak doldurulacak -->
+        <select asp-for="KategoriId" class="form-select" asp-items="ViewBag.Kategoriler">
+            <option value="">Kategori Seçiniz</option>
         </select>
         <span asp-validation-for="KategoriId" class="text-danger"></span>
     </div>
@@ -34,9 +59,10 @@
         <span asp-validation-for="Aciklama" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label">Kitap Resmi</label>
-        <input type="file" name="ResimDosyasi" class="form-control" />
+        <label class="form-label">Kitap Resmi <span class="text-danger">*</span></label>
+        <input type="file" name="ResimDosyasi" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
+        <div class="form-text">Sadece JPG, JPEG, PNG ve GIF dosyaları kabul edilir. Maksimum dosya boyutu: 5MB</div>
     </div>
     <button type="submit" class="btn btn-success">Kaydet</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form> 
+</form>

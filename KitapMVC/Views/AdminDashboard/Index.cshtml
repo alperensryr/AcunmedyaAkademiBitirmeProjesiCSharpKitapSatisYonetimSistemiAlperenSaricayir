@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Dashboard";
     Layout = "_AdminLayout"; // Admin paneli için özel layout'u kullan
 }
@@ -7,8 +7,8 @@
     <h1 class="h2">@ViewData["Title"]</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Raporlar</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Ayarlar</button>
+            <a asp-controller="AdminDashboard" asp-action="Raporlar" class="btn btn-sm btn-outline-secondary"><i class="bi bi-graph-up"></i> Raporlar</a>
+            <a asp-controller="AdminDashboard" asp-action="Ayarlar" class="btn btn-sm btn-outline-secondary"><i class="bi bi-gear"></i> Ayarlar</a>
         </div>
     </div>
 </div>

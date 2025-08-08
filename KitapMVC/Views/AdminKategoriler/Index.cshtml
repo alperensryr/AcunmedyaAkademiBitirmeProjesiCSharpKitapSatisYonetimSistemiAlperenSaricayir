@@ -1,9 +1,27 @@
-@model IEnumerable<KitapMVC.Controllers.AdminKategorilerController.KategoriViewModel>
+@model IEnumerable<KitapMVC.Models.KategoriViewModel>
+
 @{
     ViewData["Title"] = "Kategoriler";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kategori Listesi</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <a class="btn btn-primary mb-3" asp-action="Create">Yeni Kategori Ekle</a>
 <table class="table table-bordered table-striped">
     <thead>
@@ -29,4 +47,4 @@
         </tr>
     }
     </tbody>
-</table> 
+</table>

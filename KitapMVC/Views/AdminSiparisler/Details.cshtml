@@ -1,12 +1,14 @@
-@model KitapMVC.Controllers.AdminSiparislerController.SiparisViewModel
+@model KitapMVC.Models.SiparisViewModel
 @{
     ViewData["Title"] = "Sipariş Detay";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Sipariş Detay</h2>
 <dl class="row">
     <dt class="col-sm-2">Kullanıcı</dt>
     <dd class="col-sm-10">@Model.KullaniciAd</dd>
+    <dt class="col-sm-2">E-posta</dt>
+    <dd class="col-sm-10">@Model.KullaniciEmail</dd>
     <dt class="col-sm-2">Sipariş Tarihi</dt>
     <dd class="col-sm-10">@Model.SiparisTarihi</dd>
     <dt class="col-sm-2">Toplam Tutar</dt>
@@ -32,4 +34,4 @@
     }
     </tbody>
 </table>
-<a asp-action="Index" class="btn btn-secondary">Geri</a> 
+<a asp-action="Index" class="btn btn-secondary">Geri</a>

@@ -1,4 +1,4 @@
-@model List<KitapApi.Entities.SepetItem>
+@model List<KitapMVC.Models.Entities.SepetItem>
 @{
     ViewData["Title"] = "Siparişi Tamamla";
     decimal toplamSepetTutari = Model.Sum(item => item.ToplamFiyat);
@@ -45,4 +45,4 @@
         <button type="submit" class="btn btn-success">Siparişi Onayla</button>
         <a asp-action="Index" class="btn btn-secondary">Geri</a>
     </form>
-</div> 
+</div>

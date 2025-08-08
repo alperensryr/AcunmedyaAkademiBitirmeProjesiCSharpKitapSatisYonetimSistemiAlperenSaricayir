@@ -1,0 +1,13 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="600" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+  <rect x="50" y="50" width="300" height="40" fill="#6c757d" rx="5"/>
+  <rect x="50" y="110" width="200" height="20" fill="#adb5bd" rx="3"/>
+  <rect x="50" y="150" width="250" height="15" fill="#ced4da" rx="2"/>
+  <rect x="50" y="180" width="180" height="15" fill="#ced4da" rx="2"/>
+  <rect x="50" y="210" width="220" height="15" fill="#ced4da" rx="2"/>
+  <rect x="150" y="300" width="100" height="100" fill="#e9ecef" stroke="#adb5bd" stroke-width="1" rx="10"/>
+  <circle cx="200" cy="330" r="15" fill="#6c757d"/>
+  <path d="M190 345 L200 355 L210 345" stroke="#6c757d" stroke-width="2" fill="none"/>
+  <text x="200" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6c757d">Kitap Resmi</text>
+  <text x="200" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#adb5bd">Bulunamadı</text>
+</svg>

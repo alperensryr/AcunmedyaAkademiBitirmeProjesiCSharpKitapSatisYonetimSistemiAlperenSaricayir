@@ -1,18 +1,27 @@
-@model KitapMVC.Controllers.AdminKullanicilarController.KullaniciViewModel
+@model KitapMVC.Models.KullaniciViewModel
 @{
     ViewData["Title"] = "Kullanıcı Detay";
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_AdminLayout.cshtml";
 }
 <h2>Kullanıcı Detay</h2>
-<dl class="row">
-    <dt class="col-sm-2">Ad Soyad</dt>
-    <dd class="col-sm-10">@Model.AdSoyad</dd>
-    <dt class="col-sm-2">Email</dt>
-    <dd class="col-sm-10">@Model.Email</dd>
-    <dt class="col-sm-2">Rol</dt>
-    <dd class="col-sm-10">@Model.Rol</dd>
-    <dt class="col-sm-2">Kayıt Tarihi</dt>
-    <dd class="col-sm-10">@Model.KayitTarihi</dd>
-</dl>
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-<a asp-action="Index" class="btn btn-secondary">Geri</a> 
+@if (Model != null)
+{
+    <dl class="row">
+        <dt class="col-sm-2">Ad Soyad</dt>
+        <dd class="col-sm-10">@Model.AdSoyad</dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+        <dt class="col-sm-2">Rol</dt>
+        <dd class="col-sm-10">@Model.Rol</dd>
+        <dt class="col-sm-2">Kayıt Tarihi</dt>
+        <dd class="col-sm-10">@Model.KayitTarihi</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Hata:</strong> Kullanıcı bilgileri yüklenemedi.
+    </div>
+ }
+ <a asp-action="Index" class="btn btn-secondary">Geri</a>

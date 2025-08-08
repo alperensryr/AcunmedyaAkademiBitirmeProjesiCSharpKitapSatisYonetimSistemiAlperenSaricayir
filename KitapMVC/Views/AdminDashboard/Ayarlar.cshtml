@@ -1,0 +1,210 @@
+@{
+    ViewData["Title"] = "Ayarlar";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><i class="bi bi-gear"></i> @ViewData["Title"]</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a asp-controller="AdminDashboard" asp-action="Index" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Dashboard'a Dön
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="bi bi-palette"></i> Tema Ayarları</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="theme-option" data-theme="light">
+                            <div class="theme-preview light-theme">
+                                <div class="theme-header"></div>
+                                <div class="theme-sidebar"></div>
+                                <div class="theme-content"></div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <button class="btn btn-outline-primary theme-btn" data-theme="light">
+                                    <i class="bi bi-sun"></i> Açık Tema
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="theme-option" data-theme="dark">
+                            <div class="theme-preview dark-theme">
+                                <div class="theme-header"></div>
+                                <div class="theme-sidebar"></div>
+                                <div class="theme-content"></div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <button class="btn btn-outline-secondary theme-btn" data-theme="dark">
+                                    <i class="bi bi-moon"></i> Karanlık Tema
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-info mt-3">
+                    <i class="bi bi-info-circle"></i> Tema değişikliği tüm admin paneli sayfalarında geçerli olacaktır.
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="bi bi-sliders"></i> Genel Ayarlar</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="autoSave" checked>
+                            <label class="form-check-label" for="autoSave">
+                                Otomatik Kaydetme
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="notifications" checked>
+                            <label class="form-check-label" for="notifications">
+                                Bildirimler
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="bi bi-info-circle"></i> Bilgi</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Sistem Versiyonu:</strong> v1.0.0</p>
+                <p><strong>Son Güncelleme:</strong> @DateTime.Now.ToString("dd.MM.yyyy")</p>
+                <p><strong>Aktif Kullanıcı:</strong> @User.Identity?.Name</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .theme-option {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .theme-option:hover {
+        transform: scale(1.05);
+    }
+    
+    .theme-preview {
+        width: 100%;
+        height: 120px;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #dee2e6;
+    }
+    
+    .light-theme {
+        background-color: #f8f9fa;
+    }
+    
+    .light-theme .theme-header {
+        height: 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .light-theme .theme-sidebar {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        width: 30%;
+        height: calc(100% - 20px);
+        background-color: #e9ecef;
+    }
+    
+    .light-theme .theme-content {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        width: 70%;
+        height: calc(100% - 20px);
+        background-color: #ffffff;
+    }
+    
+    .dark-theme {
+        background-color: #212529;
+    }
+    
+    .dark-theme .theme-header {
+        height: 20px;
+        background-color: #343a40;
+        border-bottom: 1px solid #495057;
+    }
+    
+    .dark-theme .theme-sidebar {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        width: 30%;
+        height: calc(100% - 20px);
+        background-color: #495057;
+    }
+    
+    .dark-theme .theme-content {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        width: 70%;
+        height: calc(100% - 20px);
+        background-color: #2c3034;
+    }
+    
+    .theme-option.active .theme-preview {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Mevcut temayı kontrol et
+            var currentTheme = '@Context.Session.GetString("Theme")' || 'light';
+            $('.theme-option[data-theme="' + currentTheme + '"]').addClass('active');
+            
+            // Tema değiştirme
+            $('.theme-btn').click(function() {
+                var theme = $(this).data('theme');
+                
+                $.ajax({
+                    url: '@Url.Action("ToggleTheme", "AdminDashboard")',
+                    type: 'POST',
+                    data: { theme: theme },
+                    success: function(response) {
+                        if(response.success) {
+                            $('.theme-option').removeClass('active');
+                            $('.theme-option[data-theme="' + theme + '"]').addClass('active');
+                            
+                            // Sayfayı yenile
+                            setTimeout(function() {
+                                location.reload();
+                            }, 500);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,4 +1,4 @@
-﻿@model List<KitapApi.Entities.SepetItem>
+@model List<KitapMVC.Models.Entities.SepetItem>
 @{
     ViewData["Title"] = "Sepetim";
     decimal toplamSepetTutari = Model.Sum(item => item.ToplamFiyat);
@@ -6,6 +6,22 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
     @if (Model == null || !Model.Any())
     {
@@ -36,16 +52,26 @@
                         <td class="align-middle">@item.KitapAd</td>
                         <td class="align-middle">@item.Fiyat.ToString("c")</td>
                         <td class="align-middle">
-                            <form asp-controller="Sepet" asp-action="AdetGuncelle" method="post" class="d-flex align-items-center">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQuantity(@item.KitapId, -1)">-</button>
+                                <span class="mx-2 fw-bold" id="adet-@item.KitapId">@item.Adet</span>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQuantity(@item.KitapId, 1)">+</button>
+                                <div class="spinner-border spinner-border-sm ms-2 d-none" id="spinner-@item.KitapId" role="status" aria-hidden="true"></div>
+                            </div>
+                            <form id="form-@item.KitapId" asp-controller="Sepet" asp-action="AdetGuncelle" method="post" class="d-none">
                                 <input type="hidden" name="kitapId" value="@item.KitapId" />
-                                <input type="number" name="adet" value="@item.Adet" min="1" class="form-control form-control-sm text-center" style="width: 70px;" onchange="this.form.submit()" />
+                                <input type="hidden" name="adet" id="hidden-adet-@item.KitapId" value="@item.Adet" />
                             </form>
                         </td>
                         <td class="align-middle">@item.ToplamFiyat.ToString("c")</td>
                         <td class="align-middle">
-                            <form asp-controller="Sepet" asp-action="SepettenSil" method="post" onsubmit="return confirm('Bu ürünü sepetten kaldırmak istediğinizden emin misiniz?');">
+                            <form asp-controller="Sepet" asp-action="SepettenSil" method="post" class="sil-form" onsubmit="return confirmDelete(this);">
+                                @Html.AntiForgeryToken()
                                 <input type="hidden" name="kitapId" value="@item.KitapId" />
-                                <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                <button type="submit" class="btn btn-danger btn-sm sil-btn">
+                                    <span class="btn-text">Sil</span>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -61,7 +87,83 @@
 
         <div class="d-flex justify-content-between mt-4">
             <a asp-controller="Kitaplar" asp-action="Index" class="btn btn-outline-secondary">Alışverişe Devam Et</a>
-            <a asp-controller="Sepet" asp-action="SiparisiTamamla" class="btn btn-success">Siparişi Tamamla</a>
+            <a asp-controller="Sepet" asp-action="SiparisiTamamla" class="btn btn-success siparis-btn">
+                <span class="btn-text">Siparişi Tamamla</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </a>
         </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        function changeQuantity(kitapId, change) {
+            var adetSpan = $('#adet-' + kitapId);
+            var hiddenInput = $('#hidden-adet-' + kitapId);
+            var spinner = $('#spinner-' + kitapId);
+            var form = $('#form-' + kitapId);
+            
+            // Eğer zaten bir işlem devam ediyorsa, yeni işlem başlatma
+            if (!spinner.hasClass('d-none')) {
+                return;
+            }
+            
+            var currentAdet = parseInt(adetSpan.text());
+            var newAdet = currentAdet + change;
+            
+            // Adet 1'den az olamaz
+            if (newAdet < 1) {
+                return;
+            }
+            
+            // UI'yi güncelle
+            adetSpan.text(newAdet);
+            hiddenInput.val(newAdet);
+            
+            // Loading göster
+            spinner.removeClass('d-none');
+            
+            // Form submit et
+            form.submit();
+        }
+        
+        function confirmDelete(form) {
+            if (confirm('Bu ürünü sepetten kaldırmak istediğinizden emin misiniz?')) {
+                var btn = $(form).find('.sil-btn');
+                btn.prop('disabled', true);
+                btn.find('.btn-text').text('Siliniyor...');
+                btn.find('.spinner-border').removeClass('d-none');
+                return true;
+            }
+            return false;
+        }
+        
+        $(document).ready(function() {
+            // Sipariş tamamla butonu için loading state
+            $('.siparis-btn').on('click', function() {
+                var btn = $(this);
+                btn.find('.btn-text').text('Yönlendiriliyor...');
+                btn.find('.spinner-border').removeClass('d-none');
+            });
+            
+            // Resim yükleme hatası durumunda placeholder göster
+            $('img').on('error', function() {
+                var $img = $(this);
+                // Eğer zaten placeholder'a çevrilmişse, tekrar değiştirme
+                if (!$img.attr('src').includes('placeholder')) {
+                    $img.attr('src', 'https://via.placeholder.com/100x150?text=Resim+Bulunamadı');
+                    $img.off('error'); // Error event'ini kaldır, sonsuz döngüyü önle
+                }
+            });
+            
+            // Sayfa yüklendiğinde mevcut resimleri kontrol et
+            $('img').each(function() {
+                var $img = $(this);
+                var src = $img.attr('src');
+                if (!src || src === '' || src === 'null') {
+                    $img.attr('src', '/images/placeholder-book-small.svg');
+                }
+            });
+        });
+    </script>
+}
