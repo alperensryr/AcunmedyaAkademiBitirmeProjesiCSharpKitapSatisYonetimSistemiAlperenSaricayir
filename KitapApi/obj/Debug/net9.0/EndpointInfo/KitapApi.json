@@ -5,6 +5,191 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Favori": {
+      "get": {
+        "tags": [
+          "Favori"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favori"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favori"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favori"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Favori"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Favori/{id}": {
+      "get": {
+        "tags": [
+          "Favori"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favori"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Favori"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favori"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Favori"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Kategoriler": {
       "get": {
         "tags": [
@@ -375,6 +560,97 @@
         }
       }
     },
+    "/api/Kitaplar/kategori/{kategoriId}": {
+      "get": {
+        "tags": [
+          "Kitaplar"
+        ],
+        "parameters": [
+          {
+            "name": "kategoriId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Kitap"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Kitap"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Kitap"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Kitaplar/upload": {
+      "post": {
+        "tags": [
+          "Kitaplar"
+        ],
+        "parameters": [
+          {
+            "name": "kitapId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Kullanicilar/Register": {
       "post": {
         "tags": [
@@ -449,24 +725,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Kullanici"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Kullanici"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Kullanici"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -610,6 +869,292 @@
         }
       }
     },
+    "/api/Kullanicilar/{id}/ChangePassword": {
+      "post": {
+        "tags": [
+          "Kullanicilar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Kullanicilar/{id}/UpdateWithPassword": {
+      "put": {
+        "tags": [
+          "Kullanicilar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWithPasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWithPasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWithPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Siparis": {
+      "get": {
+        "tags": [
+          "Siparis"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Siparis"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Siparis/{id}": {
+      "get": {
+        "tags": [
+          "Siparis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Siparis"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Siparis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Siparis"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Siparis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Siparis/Onayla/{id}": {
+      "put": {
+        "tags": [
+          "Siparis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -652,6 +1197,48 @@
   },
   "components": {
     "schemas": {
+      "ChangePasswordRequest": {
+        "required": [
+          "mevcutSifre",
+          "yeniSifre"
+        ],
+        "type": "object",
+        "properties": {
+          "mevcutSifre": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "yeniSifre": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Favori": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kullaniciId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kitapId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kullanici": {
+            "$ref": "#/components/schemas/Kullanici"
+          },
+          "kitap": {
+            "$ref": "#/components/schemas/Kitap"
+          }
+        },
+        "additionalProperties": false
+      },
       "Kategori": {
         "type": "object",
         "properties": {
@@ -761,6 +1348,102 @@
           "sifre": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Siparis": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kullaniciId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siparisTarihi": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "toplamTutar": {
+            "type": "number",
+            "format": "double"
+          },
+          "durum": {
+            "type": "string",
+            "nullable": true
+          },
+          "kullanici": {
+            "$ref": "#/components/schemas/Kullanici"
+          },
+          "siparisDetaylari": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SiparisDetay"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SiparisDetay": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siparisId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kitapId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "adet": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fiyat": {
+            "type": "number",
+            "format": "double"
+          },
+          "siparis": {
+            "$ref": "#/components/schemas/Siparis"
+          },
+          "kitap": {
+            "$ref": "#/components/schemas/Kitap"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateWithPasswordRequest": {
+        "required": [
+          "adSoyad",
+          "email",
+          "rol"
+        ],
+        "type": "object",
+        "properties": {
+          "adSoyad": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "rol": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "yeniSifre": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

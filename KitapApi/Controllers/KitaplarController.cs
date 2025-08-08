@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 //using Microsoft.EntityFrameworkCore;
 //using KitapApi.Data;
 //using KitapApi.Entities;
@@ -47,9 +47,23 @@ namespace KitapApi.Controllers
             return kitap;
         }
 
+        // GET: api/Kitaplar/kategori/5
+        // Belirli bir kategoriye ait kitapları getirir.
+        [HttpGet("kategori/{kategoriId}")]
+        public async Task<ActionResult<IEnumerable<Kitap>>> GetKitaplarByKategori(int kategoriId)
+        {
+            var kitaplar = await _context.Kitaplar
+                .Include(k => k.Kategori)
+                .Where(k => k.KategoriId == kategoriId)
+                .ToListAsync();
+
+            return kitaplar;
+        }
+
         // POST: api/Kitaplar
         // Yeni bir kitap ekler.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Kitap>> CreateKitap(Kitap kitap)
         {
             if (kitap.KategoriId == 0)
@@ -73,6 +87,7 @@ namespace KitapApi.Controllers
         // PUT: api/Kitaplar/5
         // Belirli bir ID'ye sahip kitabı günceller.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateKitap(int id, Kitap kitap)
         {
             // Gelen ID ile kitap nesnesinin ID'si eşleşmeli
@@ -144,11 +159,22 @@ namespace KitapApi.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("Dosya seçilmedi.");
 
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            var currentDirectory = Directory.GetCurrentDirectory();
+            Console.WriteLine($"Current Directory: {currentDirectory}");
+            
+            var uploadsFolder = Path.Combine(currentDirectory, "wwwroot", "uploads");
+            Console.WriteLine($"Uploads Folder Path: {uploadsFolder}");
+            
             if (!Directory.Exists(uploadsFolder))
+            {
+                Console.WriteLine($"Creating directory: {uploadsFolder}");
                 Directory.CreateDirectory(uploadsFolder);
+            }
+            
             var fileName = $"kitap_{kitapId}_{Guid.NewGuid().ToString().Substring(0,8)}{Path.GetExtension(file.FileName)}";
             var filePath = Path.Combine(uploadsFolder, fileName);
+            Console.WriteLine($"File Path: {filePath}");
+            
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);

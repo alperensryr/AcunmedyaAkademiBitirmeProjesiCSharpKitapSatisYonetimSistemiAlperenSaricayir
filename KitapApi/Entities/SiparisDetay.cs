@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KitapApi.Entities
@@ -14,8 +14,8 @@ namespace KitapApi.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Fiyat { get; set; }
 
-        public Siparis Siparis { get; set; } = null!;
-        public Kitap Kitap { get; set; } = null!;
+        public Siparis? Siparis { get; set; }
+        public Kitap? Kitap { get; set; }
     }
 }
 //using System.ComponentModel.DataAnnotations;

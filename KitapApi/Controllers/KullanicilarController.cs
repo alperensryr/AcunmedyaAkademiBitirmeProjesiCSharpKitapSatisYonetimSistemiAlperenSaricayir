@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KitapApi.Data;
 using KitapApi.Entities;
@@ -30,16 +30,12 @@ namespace KitapApi.Controllers
         // Yardımcı Metot: Şifre Hash'leme
         private string HashPassword(string password)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        private bool VerifyPassword(string password, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hash);
         }
 
         // POST: api/Kullanicilar/Register
@@ -72,35 +68,42 @@ namespace KitapApi.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<object>> Login([FromBody] LoginModel loginModel)
         {
-            var kullanici = await _context.Kullanicilar.FirstOrDefaultAsync(u => u.Email == loginModel.Email);
-
-            if (kullanici == null || HashPassword(loginModel.Sifre) != kullanici.SifreHash)
+            try
             {
-                return Unauthorized("Geçersiz e-posta veya şifre.");
+                var kullanici = await _context.Kullanicilar.FirstOrDefaultAsync(u => u.Email == loginModel.Email);
+
+                if (kullanici == null || !VerifyPassword(loginModel.Sifre, kullanici.SifreHash))
+                {
+                    return Unauthorized("Geçersiz e-posta veya şifre.");
+                }
+
+                // JWT Token üret
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = System.Text.Encoding.UTF8.GetBytes(StartupStatic.JwtKey); // Statik key
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, kullanici.Id.ToString()),
+                    new Claim(ClaimTypes.Email, kullanici.Email),
+                    new Claim(ClaimTypes.Role, kullanici.Rol)
+                };
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.UtcNow.AddHours(2),
+                    Issuer = StartupStatic.JwtIssuer,
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var jwt = tokenHandler.WriteToken(token);
+
+                // Şifre hash'ini güvenlik nedeniyle döndürme
+                kullanici.SifreHash = "";
+                return Ok(new { token = jwt, kullanici });
             }
-
-            // JWT Token üret
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = System.Text.Encoding.UTF8.GetBytes(StartupStatic.JwtKey); // Statik key
-            var claims = new[]
+            catch (Exception ex)
             {
-                new Claim(ClaimTypes.NameIdentifier, kullanici.Id.ToString()),
-                new Claim(ClaimTypes.Email, kullanici.Email),
-                new Claim(ClaimTypes.Role, kullanici.Rol)
-            };
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(2),
-                Issuer = StartupStatic.JwtIssuer,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var jwt = tokenHandler.WriteToken(token);
-
-            // Şifre hash'ini güvenlik nedeniyle döndürme
-            kullanici.SifreHash = "";
-            return Ok(new { token = jwt, kullanici });
+                return StatusCode(500, $"Login hatası: {ex.Message}");
+            }
         }
 
         // GET: api/Kullanicilar
@@ -129,6 +132,7 @@ namespace KitapApi.Controllers
         // PUT: api/Kullanicilar/5
         // Belirli bir ID'ye sahip kullanıcıyı günceller
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateKullanici(int id, Kullanici kullanici)
         {
             if (id != kullanici.Id)
@@ -186,6 +190,73 @@ namespace KitapApi.Controllers
             return NoContent();
         }
 
+        // POST: api/Kullanicilar/{id}/ChangePassword
+        // Kullanıcının şifresini değiştirir
+        [HttpPost("{id}/ChangePassword")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(int id, [FromBody] ChangePasswordRequest request)
+        {
+            try
+            {
+                var kullanici = await _context.Kullanicilar.FindAsync(id);
+                if (kullanici == null)
+                {
+                    return NotFound("Kullanıcı bulunamadı.");
+                }
+
+                // Mevcut şifreyi doğrula
+                if (!VerifyPassword(request.MevcutSifre, kullanici.SifreHash))
+                {
+                    return BadRequest("Mevcut şifre yanlış.");
+                }
+
+                // Yeni şifreyi hash'le ve kaydet
+                kullanici.SifreHash = HashPassword(request.YeniSifre);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Şifre başarıyla değiştirildi." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Şifre değiştirme hatası: {ex.Message}");
+            }
+        }
+
+        // PUT: api/Kullanicilar/{id}/UpdateWithPassword
+        // Kullanıcı bilgilerini ve şifresini birlikte günceller
+        [HttpPut("{id}/UpdateWithPassword")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateKullaniciWithPassword(int id, [FromBody] UpdateWithPasswordRequest request)
+        {
+            try
+            {
+                var kullanici = await _context.Kullanicilar.FindAsync(id);
+                if (kullanici == null)
+                {
+                    return NotFound("Kullanıcı bulunamadı.");
+                }
+
+                // Kullanıcı bilgilerini güncelle
+                kullanici.AdSoyad = request.AdSoyad;
+                kullanici.Email = request.Email;
+                kullanici.Rol = request.Rol;
+
+                // Yeni şifreyi hash'le ve kaydet
+                if (!string.IsNullOrWhiteSpace(request.YeniSifre))
+                {
+                    kullanici.SifreHash = HashPassword(request.YeniSifre);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Kullanıcı ve şifre başarıyla güncellendi." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Kullanıcı güncelleme hatası: {ex.Message}");
+            }
+        }
+
         private bool KullaniciExists(int id)
         {
             return _context.Kullanicilar.Any(e => e.Id == id);
@@ -199,5 +270,27 @@ namespace KitapApi.Controllers
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Sifre { get; set; } = string.Empty;
+    }
+
+    // Şifre değiştirme için model
+    public class ChangePasswordRequest
+    {
+        [Required]
+        public string MevcutSifre { get; set; } = string.Empty;
+        [Required]
+        public string YeniSifre { get; set; } = string.Empty;
+    }
+
+    // Kullanıcı bilgilerini ve şifresini birlikte güncelleme için model
+    public class UpdateWithPasswordRequest
+    {
+        [Required]
+        public string AdSoyad { get; set; } = string.Empty;
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+        [Required]
+        public string Rol { get; set; } = string.Empty;
+        public string YeniSifre { get; set; } = string.Empty;
     }
 }

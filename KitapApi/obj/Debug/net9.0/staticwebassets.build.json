@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "N3NjpNWQMo8jlC4eMZzTpNGVnU9X5PjDECEiJoLCBWQ=",
-  "Source": "KitapApi",
-  "BasePath": "_content/KitapApi",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"e+JZIEKDqnNU3lpmqjR8iryEnzk6w6XKdQo8pFNNrMU=","Source":"KitapApi","BasePath":"/","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[{"Name":"KitapApi\\wwwroot","Source":"KitapApi","ContentRoot":"C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\wwwroot\\","BasePath":"/","Pattern":"**"}],"Assets":[],"Endpoints":[]}

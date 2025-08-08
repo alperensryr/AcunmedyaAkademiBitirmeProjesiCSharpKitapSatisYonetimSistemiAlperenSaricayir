@@ -15,8 +15,10 @@ namespace KitapApi.Entities
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal ToplamTutar { get; set; }
+        
+        public string Durum { get; set; } = "Beklemede"; // Beklemede, Onaylandı, İptal Edildi
 
-        public Kullanici Kullanici { get; set; } = null!;
+        public Kullanici? Kullanici { get; set; }
         public List<SiparisDetay> SiparisDetaylari { get; set; } = new();
     }
 }

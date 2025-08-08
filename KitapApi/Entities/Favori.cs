@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace KitapApi.Entities
 {
@@ -9,8 +9,8 @@ namespace KitapApi.Entities
         public int KullaniciId { get; set; }
         public int KitapId { get; set; }
 
-        public Kullanici Kullanici { get; set; } = null!;
-        public Kitap Kitap { get; set; } = null!;
+        public Kullanici? Kullanici { get; set; }
+        public Kitap? Kitap { get; set; }
     }
 }
 //using System.ComponentModel.DataAnnotations;

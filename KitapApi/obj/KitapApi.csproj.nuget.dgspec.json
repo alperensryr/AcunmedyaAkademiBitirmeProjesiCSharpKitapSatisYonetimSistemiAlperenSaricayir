@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\KitapApi\\KitapApi.csproj": {}
+    "C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\KitapApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\KitapApi\\KitapApi.csproj": {
+    "C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\KitapApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
+        "projectUniqueName": "C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
         "projectName": "KitapApi",
-        "projectPath": "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
-        "packagesPath": "C:\\Users\\alperen.saricayir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alperen.saricayir\\Downloads\\KitapProjesi-main\\KitapApi\\obj\\",
+        "projectPath": "C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\KitapApi.csproj",
+        "packagesPath": "C:\\Users\\memos\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\memos\\OneDrive\\Masaüstü\\AlperenSARICAYIRAcunmedya ProjeV1.0.1\\KitapProjesi-main\\KitapApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alperen.saricayir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\memos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +50,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.2, )"
@@ -60,6 +67,10 @@
               "version": "[9.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.7, )"
             },
@@ -93,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

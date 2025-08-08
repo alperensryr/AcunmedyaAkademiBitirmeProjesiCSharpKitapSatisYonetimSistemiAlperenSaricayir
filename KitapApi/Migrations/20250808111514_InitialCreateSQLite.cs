@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KitapApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateSQLite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +15,10 @@ namespace KitapApi.Migrations
                 name: "Kategoriler",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Ad = table.Column<string>(type: "TEXT", nullable: false),
+                    Aciklama = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,13 +29,13 @@ namespace KitapApi.Migrations
                 name: "Kullanicilar",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Soyad = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Eposta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sifre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AdSoyad = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    SifreHash = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Rol = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    KayitTarihi = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,14 +46,14 @@ namespace KitapApi.Migrations
                 name: "Kitaplar",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Yazar = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Ad = table.Column<string>(type: "TEXT", nullable: false),
+                    Yazar = table.Column<string>(type: "TEXT", nullable: false),
                     Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Aciklama = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResimUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    KategoriId = table.Column<int>(type: "int", nullable: false)
+                    Aciklama = table.Column<string>(type: "TEXT", nullable: true),
+                    ResimUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    KategoriId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,11 +70,12 @@ namespace KitapApi.Migrations
                 name: "Siparisler",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    KullaniciId = table.Column<int>(type: "int", nullable: false),
-                    SiparisTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    KullaniciId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SiparisTarihi = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ToplamTutar = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Durum = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,10 +92,10 @@ namespace KitapApi.Migrations
                 name: "Favoriler",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    KullaniciId = table.Column<int>(type: "int", nullable: false),
-                    KitapId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    KullaniciId = table.Column<int>(type: "INTEGER", nullable: false),
+                    KitapId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,11 +118,11 @@ namespace KitapApi.Migrations
                 name: "SiparisDetaylari",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SiparisId = table.Column<int>(type: "int", nullable: false),
-                    KitapId = table.Column<int>(type: "int", nullable: false),
-                    Adet = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SiparisId = table.Column<int>(type: "INTEGER", nullable: false),
+                    KitapId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Adet = table.Column<int>(type: "INTEGER", nullable: false),
                     Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>

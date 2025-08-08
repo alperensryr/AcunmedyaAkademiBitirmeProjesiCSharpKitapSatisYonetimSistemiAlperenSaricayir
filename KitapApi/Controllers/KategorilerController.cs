@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KitapApi.Data;
 using KitapApi.Entities;
@@ -41,6 +41,7 @@ namespace KitapApi.Controllers
         // POST: api/Kategoriler
         // Yeni bir kategori ekler
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Kategori>> CreateKategori(Kategori kategori)
         {
             _context.Kategoriler.Add(kategori);
@@ -52,6 +53,7 @@ namespace KitapApi.Controllers
         // PUT: api/Kategoriler/5
         // Mevcut bir kategoriyi günceller
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateKategori(int id, Kategori kategori)
         {
             if (id != kategori.Id)
@@ -92,10 +94,23 @@ namespace KitapApi.Controllers
                 return NotFound();
             }
 
-            _context.Kategoriler.Remove(kategori);
-            await _context.SaveChangesAsync();
+            // Bu kategoriye ait kitap var mı kontrol et
+            var kategoriKitapSayisi = await _context.Kitaplar.CountAsync(k => k.KategoriId == id);
+            if (kategoriKitapSayisi > 0)
+            {
+                return BadRequest($"Bu kategori silinemez çünkü {kategoriKitapSayisi} adet kitap bu kategoriye bağlıdır. Önce bu kitapları başka bir kategoriye taşıyın veya silin.");
+            }
 
-            return NoContent(); // Başarılı silme için içerik yok
+            try
+            {
+                _context.Kategoriler.Remove(kategori);
+                await _context.SaveChangesAsync();
+                return NoContent(); // Başarılı silme için içerik yok
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Kategori silinirken hata oluştu: {ex.Message}");
+            }
         }
 
         private bool KategoriExists(int id)
